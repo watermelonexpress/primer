@@ -1,0 +1,4 @@
+#! /usr/bin/env ruby
+require 'primer'
+
+exit Primer::Runner.start
