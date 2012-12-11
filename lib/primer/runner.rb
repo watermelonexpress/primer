@@ -10,40 +10,63 @@ module Primer
       end
     end
 
-    desc "start SERVICE", "Start a particular service"
-    def start service
-      say "\u2219 Starting #{service}", :green
-      do_action service, :start
+    desc "status [SERVICE(s)]", "Show the status of all or a particular service"
+    def status *services
+      get_services(services) do |name, service|
+        status = service.status
+        case status[0]
+        when :started
+          say "\u2713 #{name} started with pid #{status[1]}.", :green
+        when :stopped
+          say "\u2717 #{name} stopped.", :yellow
+        end
+      end
+      #do_action service, :status, 
     end
 
-    desc "stop SERVICE", "Stop a particular service"
-    def stop service
-      say "\u2219 Stopping #{service}", :green
-      do_action service, :stop
+    desc "start SERVICE(s)", "Start a particular service"
+    def start *services
+      get_services(services) do |name, service|
+        say "\u2219 Starting #{name}", :green
+        service.start
+        raise PrimerError.new("Process error #{$?}") unless ($?.exitstatus == 0)
+        status name
+      end
+      #do_action service, :start
     end
 
-    desc "restart SERVICE", "Restart a particular service"
-    def restart service
-      say "\u2219 Restarting #{service}", :green
-      do_action service, :restart
+    desc "stop SERVICE(s)", "Stop a particular service"
+    def stop *services
+      get_services(services) do |name, service|
+        say "\u2219 Stopping #{name}", :green
+        service.stop
+        raise PrimerError.new("Process error #{$?}") unless ($?.exitstatus == 0)
+        status name
+      end
+      #do_action service, :stop
+    end
+
+    desc "restart SERVICE(s)", "Restart a particular service"
+    def restart *services
+      get_services(services) do |name, service|
+        say "\u2219 Restarting #{name}", :green
+        service.restart
+        status name
+      end
+      #do_action service, :restart
     end
 
     private
-    def do_action service_name, action
-      begin
-        service = Primer::get_service(service_name).new()
-        raise Primer::PrimerError.new("Invalid action: #{action}") unless service.respond_to? action
-        service.send action
-        case action
-        when :start
-          say "\u2713 #{service_name} started."
-        when :stop
-          say "\u2713 #{service_name} stopped."
+    def get_services services, &block
+      services = Primer.services.keys if services.size == 0 and services[0].nil?
+      services.each do |service_name|
+        begin
+          yield service_name, Primer::get_service(service_name).new()
+        rescue PrimerError => pe
+          say "\u2717 #{pe.message}", :red
+        rescue Object => e
+          say "\u2717 #{e.message}", :red
         end
-      rescue PrimerError => pe
-        say "\u2717 #{pe.message}", :red
-      rescue Object => e
-        say "\u2717 #{e.message}", :red
       end
     end
   end
