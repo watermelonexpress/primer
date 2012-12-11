@@ -2,6 +2,7 @@ require "primer/version"
 
 module Primer
   def self.load_services glob
+    glob = Dir[glob]
     glob.each do |file|
       require file
     end

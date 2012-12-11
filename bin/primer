@@ -7,7 +7,7 @@ path = File.expand_path(File.join(Dir.pwd, primer_rc_file))
 throw "primerrc file required!" unless File.exists?(path)
 options = Primer::Parser.parse! path
 if options.has_key? :services
-  options[:services].each do |dir|
+options[:services].each do |dir|
     Primer::load_services dir
   end
 end
