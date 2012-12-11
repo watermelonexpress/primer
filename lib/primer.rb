@@ -30,4 +30,5 @@ module Primer
 end
 
 require "primer/base_service"
+require "primer/parser"
 require "primer/runner"
