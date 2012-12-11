@@ -21,7 +21,6 @@ module Primer
           say "\u2717 #{name} stopped.", :yellow
         end
       end
-      #do_action service, :status, 
     end
 
     desc "start SERVICE(s)", "Start a particular service"
@@ -32,7 +31,6 @@ module Primer
         raise PrimerError.new("Process error #{$?}") unless ($?.exitstatus == 0)
         status name
       end
-      #do_action service, :start
     end
 
     desc "stop SERVICE(s)", "Stop a particular service"
@@ -43,7 +41,6 @@ module Primer
         raise PrimerError.new("Process error #{$?}") unless ($?.exitstatus == 0)
         status name
       end
-      #do_action service, :stop
     end
 
     desc "restart SERVICE(s)", "Restart a particular service"
@@ -53,7 +50,6 @@ module Primer
         service.restart
         status name
       end
-      #do_action service, :restart
     end
 
     private

@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Primer::VERSION
   gem.authors       = ["Benchprep"]
   gem.email         = ["developers@benchprep.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Start services easily for ruby applications}
+  gem.summary       = %q{Start services easily for ruby applications}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
@@ -20,4 +20,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency "thor", "~> 0.16"
 
   gem.add_development_dependency "rake", ["10.0.1"]
+  gem.add_development_dependency "rspec"
 end
