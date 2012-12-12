@@ -1,6 +1,5 @@
 require "primer/version"
 require "thor"
-require "open3"
 
 module Primer
   def self.load_services glob
@@ -33,6 +32,5 @@ module Primer
 end
 
 require "primer/base_service"
-require "primer/rvm_service"
 require "primer/parser"
 require "primer/runner"
