@@ -40,5 +40,12 @@ module Primer
       stop
       start
     end
+
+    protected
+    def run command
+      Bundler.with_clean_env do
+        system command
+      end
+    end
   end
 end

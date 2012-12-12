@@ -1,5 +1,3 @@
-require 'thor'
-
 module Primer
   class Runner < Thor
     desc "list", "List registered services"
