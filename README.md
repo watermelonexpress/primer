@@ -86,6 +86,27 @@ Output
 ✓ service4 started with pid <pid>.
 ```
 
+* Check the status of existing services
+
+```sh
+$ be primer status
+```
+Output
+```sh
+✓ benchprep-instructor-dashboard started with pid 13020.
+✓ benchprep-teachers started with pid 13035.
+✓ benchprep-course-publisher started with pid 13050.
+✓ sidekiq started with pid 13060.
+✓ nginx started with pid 13068.
+✓ benchprep-marketing started with pid 13085.
+✓ benchprep-v2 started with pid 13099.
+✓ benchprep_reporting_api started with pid 13117.
+✓ benchprep-sso started with pid 13128.
+✓ benchprep-webapp started with pid 13142.
+✓ tenant-dashboard started with pid 13157.
+✓ benchprep-user-manager started with pid 13170.
+```
+
 ### Writing a service
 * An nginx service
 
