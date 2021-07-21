@@ -1,13 +1,22 @@
 module Primer
   class BaseService
     class << self
-      attr_reader :running_command
-      def set_running_command command
+      attr_reader :running_command, :port, :repo_name
+
+      def set_port(port)
+        @port = port
+      end
+
+      def set_repo_name(repo_name)
+        @repo_name = repo_name
+      end
+
+      def set_running_command(command)
         @running_command = command
       end
 
-      def register name
-        Primer.register name, self
+      def register(name)
+        Primer.register(name, self)
       end
     end
 
@@ -32,7 +41,7 @@ module Primer
         end
       end
 
-      status = if stopped then :stopped else :started end
+      status = stopped ? :stopped : :started
       [status, pid]
     end
 
@@ -42,7 +51,7 @@ module Primer
     end
 
     protected
-    def run command
+    def run(command)
       Bundler.with_clean_env do
         system command
       end
